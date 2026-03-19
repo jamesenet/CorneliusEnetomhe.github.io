@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cornelius Enetomhe — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:       #0D0D0D;
+  --bg2:      #141414;
+  --bg3:      #1C1C1C;
+  --border:   rgba(255,255,255,0.08);
+  --text:     #E8E4DC;
+  --muted:    #7A7570;
+  --accent:   #D4933A;
+  --accent2:  #E8B86D;
+  --accent-bg:rgba(212,147,58,0.10);
+  --red:      #C44B3A;
+  --serif:    'DM Serif Display', serif;
+  --sans:     'DM Sans', sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.5;
+}
+
+/* ── SCROLL REVEALS ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 4rem;
+  background:rgba(13,13,13,.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:var(--serif);font-size:1.15rem;color:var(--text);
+  text-decoration:none;letter-spacing:.02em;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--accent)}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:8rem 4rem 4rem;
+  position:relative;overflow:hidden;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1fr 380px;gap:4rem;
+  align-items:center;max-width:1200px;margin:0 auto;width:100%;
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:.75rem;color:var(--accent);
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--accent)}
+h1{
+  font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);
+  line-height:1.05;color:var(--text);margin-bottom:1.5rem;
+}
+h1 em{color:var(--accent);font-style:italic}
+.hero-sub{
+  font-size:1.05rem;color:var(--muted);max-width:520px;
+  line-height:1.8;margin-bottom:2.5rem;
+}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.75rem 1.75rem;border-radius:3px;font-size:.85rem;
+  font-family:var(--sans);font-weight:500;text-decoration:none;
+  letter-spacing:.04em;transition:all .25s;cursor:pointer;
+  border:none;
+}
+.btn-primary{background:var(--accent);color:#0D0D0D}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+/* hero stat card */
+.hero-stats{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:8px;padding:2rem;
+  display:flex;flex-direction:column;gap:1.5rem;
+}
+.stat-item{}
+.stat-num{
+  font-family:var(--serif);font-size:2.8rem;color:var(--accent);
+  line-height:1;margin-bottom:.25rem;
+}
+.stat-label{font-size:.8rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.stat-divider{height:1px;background:var(--border)}
+
+/* ── SECTIONS ── */
+section{padding:6rem 4rem;max-width:1200px;margin:0 auto;width:100%}
+.section-tag{
+  font-family:var(--mono);font-size:.7rem;color:var(--accent);
+  letter-spacing:.15em;text-transform:uppercase;
+  margin-bottom:1rem;display:flex;align-items:center;gap:.75rem;
+}
+.section-tag::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
+h2{
+  font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);
+  line-height:1.1;margin-bottom:1rem;
+}
+.section-intro{color:var(--muted);font-size:1rem;max-width:580px;line-height:1.8;margin-bottom:3.5rem}
+
+/* ── ABOUT ── */
+#about{border-top:1px solid var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-text p{color:var(--muted);line-height:1.9;margin-bottom:1rem;font-size:.97rem}
+.about-text p strong{color:var(--text);font-weight:500}
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{
+  display:grid;grid-template-columns:90px 1fr;gap:1.5rem;
+  padding:1.25rem 0;border-bottom:1px solid var(--border);
+  position:relative;
+}
+.tl-item:last-child{border-bottom:none}
+.tl-year{font-family:var(--mono);font-size:.75rem;color:var(--accent);padding-top:.15rem}
+.tl-content{}
+.tl-role{font-size:.9rem;font-weight:500;color:var(--text);margin-bottom:.2rem}
+.tl-org{font-size:.8rem;color:var(--muted)}
+
+/* ── PROJECTS ── */
+#projects{border-top:1px solid var(--border)}
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border)}
+.project-card{
+  background:var(--bg);padding:2.5rem;
+  transition:background .25s;cursor:pointer;
+  display:flex;flex-direction:column;gap:1rem;
+  text-decoration:none;color:inherit;
+  position:relative;overflow:hidden;
+}
+.project-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s ease;
+}
+.project-card:hover{background:var(--bg2)}
+.project-card:hover::after{transform:scaleX(1)}
+.project-num{
+  font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.1em;
+}
+.project-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.25rem}
+.tag{
+  font-size:.68rem;padding:.25rem .65rem;border-radius:2px;
+  font-family:var(--mono);letter-spacing:.06em;
+  background:var(--accent-bg);color:var(--accent);
+  border:1px solid rgba(212,147,58,.2);
+}
+.project-title{
+  font-family:var(--serif);font-size:1.45rem;line-height:1.2;
+  color:var(--text);
+}
+.project-problem{font-size:.88rem;color:var(--muted);line-height:1.7}
+.project-finding{
+  margin-top:auto;padding-top:1rem;border-top:1px solid var(--border);
+  font-size:.82rem;color:var(--text);line-height:1.6;
+}
+.project-finding strong{color:var(--accent);font-weight:500}
+.project-arrow{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.78rem;color:var(--accent);margin-top:.75rem;
+  font-family:var(--mono);letter-spacing:.06em;
+}
+
+/* ── SKILLS ── */
+#skills{border-top:1px solid var(--border)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.skill-block{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:6px;padding:1.75rem;
+}
+.skill-cat{
+  font-family:var(--mono);font-size:.7rem;color:var(--accent);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.25rem;
+  padding-bottom:.75rem;border-bottom:1px solid var(--border);
+}
+.skill-list{display:flex;flex-direction:column;gap:.6rem}
+.skill-item{display:flex;align-items:center;justify-content:space-between}
+.skill-name{font-size:.85rem;color:var(--text)}
+.skill-bar{width:90px;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.skill-fill{height:100%;background:var(--accent);border-radius:2px;
+  width:0;transition:width 1s ease}
+
+/* ── CONTACT ── */
+#contact{border-top:1px solid var(--border);text-align:center;padding-bottom:8rem}
+.contact-inner{max-width:560px;margin:0 auto}
+.contact-links{display:flex;justify-content:center;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap}
+.contact-link{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.82rem;color:var(--muted);text-decoration:none;
+  font-family:var(--mono);letter-spacing:.06em;
+  padding:.6rem 1.25rem;border:1px solid var(--border);border-radius:3px;
+  transition:all .2s;
+}
+.contact-link:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);padding:1.5rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-note{font-size:.75rem;color:var(--muted);font-family:var(--mono)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  #hero{padding:7rem 1.5rem 3rem}
+  .hero-grid{grid-template-columns:1fr;gap:2rem}
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .stat-divider{display:none}
+  section{padding:4rem 1.5rem}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .projects-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}
+}
+@media(max-width:600px){
+  .skills-grid{grid-template-columns:1fr}
+  .nav-links{gap:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CE</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">Data Analyst · Abuja, Nigeria</div>
+      <h1>Turning messy data into <em>clear decisions</em></h1>
+      <p class="hero-sub">I build analytical pipelines, predictive models, and BI dashboards that help organisations understand what's happening — and what to do next. Python · SQL · Power BI.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects →</a>
+        <a href="https://www.linkedin.com/in/cornelius-enetomhe-01688a266/" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="stat-item">
+        <div class="stat-num">89%</div>
+        <div class="stat-label">Model accuracy — student churn prediction (RIT)</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Staff records migrated &amp; validated (Fed. Ministry)</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num">10k+</div>
+        <div class="stat-label">Campaign records cross-validated (Evidence Action)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag">Background</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2>Analyst with<br/><em style="font-style:italic;color:var(--accent)">real-world roots</em></h2>
+      <br/>
+      <p>I started my career not in data science, but in <strong>architecture</strong> — a discipline built entirely on evidence-based reasoning, spatial analysis, and presenting complex findings to non-technical stakeholders. That foundation shapes how I think about data: every dataset has a structure, every insight needs a clear visual language.</p>
+      <p>Since 2022 I've applied that thinking across <strong>government, NGOs, and academic research</strong>, working with datasets ranging from national deworming campaigns to university enrolment cohorts. I'm currently completing my <strong>Machine Learning Specialization</strong> (Andrew Ng) while building a portfolio of business-framed analytical work.</p>
+      <p>I'm seeking a <strong>junior data analyst role</strong> at a firm where rigorous analysis, clean communication, and genuine curiosity about data can make a measurable difference.</p>
+    </div>
+    <div class="reveal">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2026</div>
+          <div class="tl-content">
+            <div class="tl-role">SQL for Data Science · Business Analysis cert</div>
+            <div class="tl-org">Coursera</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2025–26</div>
+          <div class="tl-content">
+            <div class="tl-role">Data Analyst — Student Outcomes</div>
+            <div class="tl-org">Rochester Institute of Technology & Excelerate</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-content">
+            <div class="tl-role">IBM Data Science & Data Analysis certs</div>
+            <div class="tl-org">Coursera / IBM</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-content">
+            <div class="tl-role">Data Entry Analyst</div>
+            <div class="tl-org">Federal Ministry of Agriculture, Nigeria</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-content">
+            <div class="tl-role">Data Entry Analyst</div>
+            <div class="tl-org">Evidence Action, Nigeria</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-content">
+            <div class="tl-role">BSc Architecture</div>
+            <div class="tl-org">Covenant University, Nigeria</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="padding-left:0;padding-right:0;max-width:100%">
+  <div style="padding:0 4rem;max-width:1200px;margin:0 auto">
+    <div class="section-tag reveal">Selected Projects</div>
+    <h2 class="reveal">Work that answers<br/><em style="font-style:italic;color:var(--accent)">a real question</em></h2>
+    <p class="section-intro reveal">Each project starts with a business problem — not a dataset. Click any card to read the full case study on GitHub.</p>
+  </div>
+
+  <div class="projects-grid reveal">
+
+    <!-- Project 1 -->
+    <a class="project-card" href="https://github.com/jamesenet/My-Portfolio-/blob/main/Student-Performance-Analysis%20.pdf" target="_blank">
+      <div>
+        <div class="project-num">01 / 04</div>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">Power BI</span><span class="tag">Pandas</span><span class="tag">Classification</span>
+        </div>
+      </div>
+      <div class="project-title">Student Performance & Churn Prediction</div>
+      <p class="project-problem"><strong style="color:var(--text);font-weight:500">Problem:</strong> Rochester Institute of Technology needed to identify at-risk students earlier in the academic year to reduce withdrawal rates and improve programme outcomes.</p>
+      <div class="project-finding">
+        <strong>Key finding:</strong> A Scikit-learn classification model (89% accuracy) flagged dropout risk 6–8 weeks earlier than manual review. Three engagement factors — assignment submission rate, LMS login frequency, and early assessment scores — explained 74% of churn variance.
+      </div>
+      <span class="project-arrow">Read full case study →</span>
+    </a>
+
+    <!-- Project 2 -->
+    <a class="project-card" href="https://github.com/jamesenet/Data-Science-/blob/main/Olympics%20Dataset%20.ipynb" target="_blank">
+      <div>
+        <div class="project-num">02 / 04</div>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">EDA</span><span class="tag">Seaborn</span>
+        </div>
+      </div>
+      <div class="project-title">Olympic Performance — What Actually Predicts Medal Counts?</div>
+      <p class="project-problem"><strong style="color:var(--text);font-weight:500">Problem:</strong> A sports analytics brief asked: beyond population size, which country-level factors best explain Olympic success, and which sports show the most performance inequality across nations?</p>
+      <div class="project-finding">
+        <strong>Key finding:</strong> GDP per capita outperforms raw population as a predictor. Countries with GDP per capita above $30k win 3× more medals per capita. Athletics & swimming account for 38% of all medals — high-volume sports where resource investment has outsized returns.
+      </div>
+      <span class="project-arrow">Read full case study →</span>
+    </a>
+
+    <!-- Project 3 -->
+    <a class="project-card" href="https://github.com/jamesenet/My-Portfolio-/blob/main/Portfolio%20Project%20Global%20Covid%20Statistics.sql" target="_blank">
+      <div>
+        <div class="project-num">03 / 04</div>
+        <div class="project-tags">
+          <span class="tag">SQL</span><span class="tag">Data Exploration</span><span class="tag">MySQL</span>
+        </div>
+      </div>
+      <div class="project-title">COVID-19 Global Mortality — Separating Signal from Noise</div>
+      <p class="project-problem"><strong style="color:var(--text);font-weight:500">Problem:</strong> Raw COVID case counts are misleading without adjusting for population, testing rates, and reporting lag. The goal was to produce a clean SQL-based analytical layer that policy teams could query reliably.</p>
+      <div class="project-finding">
+        <strong>Key finding:</strong> Infection fatality rates (IFR) vary 12× across high-income nations — primarily driven by age distribution and vaccination rollout timing, not healthcare capacity rank. Rolling 7-day averages smoothed reporting artefacts that caused 3× spikes in raw data.
+      </div>
+      <span class="project-arrow">Read full case study →</span>
+    </a>
+
+    <!-- Project 4 -->
+    <a class="project-card" href="https://github.com/jamesenet/My-Portfolio-/blob/main/Winning%20the%20space%20race%20with%20data%20science.pdf" target="_blank">
+      <div>
+        <div class="project-num">04 / 04</div>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">ML</span><span class="tag">SQL</span><span class="tag">Folium</span><span class="tag">Scikit-learn</span>
+        </div>
+      </div>
+      <div class="project-title">SpaceX Falcon 9 — Predicting Successful First-Stage Landings</div>
+      <p class="project-problem"><strong style="color:var(--text);font-weight:500">Problem:</strong> Launch cost depends heavily on whether the first stage can be recovered. Using historical launch data, can we predict landing success well enough to inform bid pricing against SpaceX?</p>
+      <div class="project-finding">
+        <strong>Key finding:</strong> Decision tree classifier achieved 83% accuracy. Payload mass and launch site are the two strongest predictors — heavier payloads reduce landing probability by 22%. CCAFS LC-40 had the highest success rate of all sites analysed.
+      </div>
+      <span class="project-arrow">Read full case study →</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag reveal">Toolkit</div>
+  <h2 class="reveal">Skills I can <em style="font-style:italic;color:var(--accent)">defend in an interview</em></h2>
+  <p class="section-intro reveal">Listed only where I can demonstrate with a project or talk through the approach in depth.</p>
+
+  <div class="skills-grid reveal">
+    <div class="skill-block">
+      <div class="skill-cat">Languages</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><span class="skill-name">SQL (MySQL / SQL Server)</span><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-cat">Libraries & Frameworks</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-name">Pandas / NumPy</span><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Scikit-learn</span><div class="skill-bar"><div class="skill-fill" data-w="72"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Matplotlib / Seaborn</span><div class="skill-bar"><div class="skill-fill" data-w="78"></div></div></div>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-cat">BI & Visualisation</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-name">Power BI (DAX)</span><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Tableau</span><div class="skill-bar"><div class="skill-fill" data-w="68"></div></div></div>
+        <div class="skill-item"><span class="skill-name">IBM Cognos</span><div class="skill-bar"><div class="skill-fill" data-w="65"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Excel (PivotTables, formulas)</span><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-cat">Data Engineering</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-name">ETL pipeline design</span><div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Data wrangling & cleaning</span><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Databricks / Jupyter</span><div class="skill-bar"><div class="skill-fill" data-w="68"></div></div></div>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-cat">Machine Learning</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-name">Classification (DT, SVM, LR)</span><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Neural Networks</span><div class="skill-bar"><div class="skill-fill" data-w="60"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Regression</span><div class="skill-bar"><div class="skill-fill" data-w="68"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Model evaluation & tuning</span><div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-cat">Tools & Methods</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-name">Git / GitHub</span><div class="skill-bar"><div class="skill-fill" data-w="72"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Google Workspace</span><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Stakeholder reporting</span><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-tag reveal" style="justify-content:center">Get in touch</div>
+    <h2 class="reveal" style="font-size:clamp(2rem,4vw,2.8rem)">Open to junior analyst<br/>roles &amp; collaborations</h2>
+    <p class="section-intro reveal" style="margin:1rem auto 0;text-align:center">Based in Nigeria · Open to remote &amp; hybrid · Available immediately</p>
+    <div class="contact-links reveal">
+      <a href="mailto:corneliusenet@gmail.com" class="contact-link">✉ Email</a>
+      <a href="https://www.linkedin.com/in/cornelius-enetomhe-01688a266/" target="_blank" class="contact-link">in LinkedIn</a>
+      <a href="https://github.com/jamesenet" target="_blank" class="contact-link">{ } GitHub</a>
+      <a href="https://x.com/cenetomhe" target="_blank" class="contact-link">✕ Twitter</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-note">© 2026 Cornelius Enetomhe</span>
+  <span class="footer-note">Data Analyst · Abuja, Nigeria</span>
+</footer>
+
+<script>
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => io.observe(el));
+
+// Skill bar animation
+const bars = document.querySelectorAll('.skill-fill');
+const barIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.width = e.target.dataset.w + '%';
+      barIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+bars.forEach(b => barIO.observe(b));
+</script>
+</body>
+</html>
